@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+<meta charset="UTF-8">
+<title>Yash ❤️ Valentine</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #ff4d6d, #ffb6c1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', sans-serif;
+    overflow: hidden;
+}
+
+/* Background floating hearts & flowers */
+.bg span {
+    position: fixed;
+    bottom: -30px;
+    font-size: 26px;
+    animation: floatUp linear infinite;
+    opacity: 0.75;
+}
+
+@keyframes floatUp {
+    from { transform: translateY(0) scale(1); opacity: 1; }
+    to { transform: translateY(-120vh) scale(1.2); opacity: 0; }
+}
+
+/* Card */
+.card {
+    background: white;
+    width: 360px;
+    padding: 28px;
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+    animation: pop 1s ease;
+    position: relative;
+    z-index: 2;
+}
+
+@keyframes pop {
+    from { transform: scale(0.6); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+h1 {
+    color: #e6004c;
+    font-size: 24px;
+}
+
+p {
+    font-size: 16px;
+    color: #333;
+}
+
+.question {
+    margin-top: 8px;
+    font-size: 17px;
+    font-weight: bold;
+    color: #e6004c;
+}
+
+.message {
+    margin-top: 14px;
+    min-height: 38px;
+    font-size: 15px;
+    color: #b3003b;
+    font-weight: bold;
+}
+
+/* Buttons */
+.buttons {
+    margin-top: 25px;
+    height: 120px;
+    position: relative;
+}
+
+button {
+    padding: 12px 26px;
+    font-size: 16px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+}
+
+#yesBtn {
+    background: linear-gradient(135deg, #ff0844, #ff5f6d);
+    color: white;
+}
+
+#yesBtn:hover {
+    transform: scale(1.2);
+}
+
+#noBtn {
+    background: #888;
+    color: white;
+    position: absolute;
+    top: 60px;
+    left: 200px;
+    transition: none; /* fast escape */
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg" id="bg"></div>
+
+<div class="card">
+    <h1>💖 Naa Valentine Avutava? 💖</h1>
+
+    <p>
+        Ee prapancham lo chaala mandi unnaaru…  
+        kani <b>naa prapancham maatram nuvve</b> ❤️
+    </p>
+
+    <div class="question">Will you be my Valentine? 💕</div>
+
+    <div class="message" id="msg"></div>
+
+    <div class="buttons" id="btnArea">
+        <button id="yesBtn">Yes 😍</button>
+        <button id="noBtn">No 🙈</button>
+    </div>
+</div>
+
+<script>
+const teluguLines = [
+    "😌 Nuvvu NO ante… naa life kuda ee NO button laga useless ga maaripothundi!",
+    "😉 nuvvu ila navvuthunte chaala andanga undi!",
+    "🙈 Maree siggu padaku… nee buggalu erupu ekkayi!",
+    "❤️ Nuvvu navvite… na gunde fast ga beat avuthundi!",
+    "😏 Inka tappinchukuntunnava? YES click cheyyadam fix!",
+    "🥰 Nuvvu kaadante… naa prapancham khaali!",
+    "😄 Ee NO button entha parigetthina… nee YES tappinchukoledu!",
+    "💖 Nuvvu pakkana unte… naa life antha colorful!"
+];
+
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const msg = document.getElementById("msg");
+const btnArea = document.getElementById("btnArea");
+
+let i = 0;
+
+/* FAST escape NO button */
+["mouseenter", "mousemove"].forEach(evt => {
+    noBtn.addEventListener(evt, () => {
+        const maxX = btnArea.clientWidth - noBtn.offsetWidth;
+        const maxY = btnArea.clientHeight - noBtn.offsetHeight;
+
+        noBtn.style.left = Math.random() * maxX + "px";
+        noBtn.style.top  = Math.random() * maxY + "px";
+
+        msg.innerText = teluguLines[i % teluguLines.length];
+        i++;
+    });
+});
+
+/* YES click */
+yesBtn.addEventListener("click", () => {
+    document.body.innerHTML = `
+        <div style="text-align:center; color:white; animation: pop 1s ease;">
+            <h1 style="font-size:42px;">💖 YESSS 💖</h1>
+            <p style="font-size:22px;">Ee kshanam na life lo best moment 🥰</p>
+            <p style="font-size:20px;">Nuvvu naa Valentine ❤️</p>
+            <p style="font-size:18px;">Ee smile eppatiki special 💫</p>
+        </div>
+    `;
+});
+
+/* Background animation */
+const bg = document.getElementById("bg");
+const icons = ["❤️","🎈","🌸","🌹","💐","❤️"];
+
+setInterval(() => {
+    const span = document.createElement("span");
+    span.innerText = icons[Math.floor(Math.random() * icons.length)];
+    span.style.left = Math.random() * window.innerWidth + "px";
+    span.style.animationDuration = (Math.random() * 4 + 6) + "s";
+    bg.appendChild(span);
+
+    setTimeout(() => span.remove(), 10000);
+}, 300);
+</script>
+
+</body>
+</html>
